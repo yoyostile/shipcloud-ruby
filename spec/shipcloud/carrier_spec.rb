@@ -24,7 +24,7 @@ describe Shipcloud::Carrier do
   describe '.all' do
     it 'makes a new Get request using the correct API endpoint' do
       expect(Shipcloud).to receive(:request).
-        with(:get, 'carriers', {}).and_return([])
+        with(:get, 'carriers', {}, api_key: nil).and_return([])
 
       Shipcloud::Carrier.all
     end
@@ -70,7 +70,7 @@ describe Shipcloud::Carrier do
 
   def stub_carriers_request
     allow(Shipcloud).to receive(:request)
-      .with(:get, 'carriers', {})
+      .with(:get, 'carriers', {}, api_key: nil)
       .and_return(
         [
           {

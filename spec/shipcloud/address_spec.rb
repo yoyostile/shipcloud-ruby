@@ -35,23 +35,27 @@ describe Shipcloud::Address do
 
   describe '.create' do
     it 'makes a new POST request using the correct API endpoint' do
-      Shipcloud.should_receive(:request).with(:post, 'addresses', valid_attributes).and_return('data' => {})
+      expect(Shipcloud).to receive(:request).
+        with(:post, 'addresses', valid_attributes, api_key: nil).and_return('data' => {})
+
       Shipcloud::Address.create(valid_attributes)
     end
   end
 
   describe '.find' do
     it 'makes a new GET request using the correct API endpoint to receive a specific address' do
-      Shipcloud.should_receive(:request).with(
-        :get, 'addresses/123', {}).and_return('id' => '123')
+      expect(Shipcloud).to receive(:request).with(
+        :get, 'addresses/123', {}, api_key: nil).and_return('id' => '123')
+
       Shipcloud::Address.find('123')
     end
   end
 
   describe '.update' do
     it 'makes a new PUT request using the correct API endpoint' do
-      Shipcloud.should_receive(:request).with(
-        :put, 'addresses/123', {:street => 'Mittelweg' }).and_return('data' => {})
+      expect(Shipcloud).to receive(:request).with(
+        :put, 'addresses/123', {:street => 'Mittelweg' }, api_key: nil).and_return('data' => {})
+
       Shipcloud::Address.update('123', {:street => 'Mittelweg' })
     end
   end
@@ -59,7 +63,7 @@ describe Shipcloud::Address do
   describe '.all' do
     it 'makes a new Get request using the correct API endpoint' do
       expect(Shipcloud).to receive(:request).
-        with(:get, 'addresses', {}).and_return([])
+        with(:get, 'addresses', {}, api_key: nil).and_return([])
 
       Shipcloud::Address.all
     end
@@ -77,7 +81,7 @@ describe Shipcloud::Address do
 
   def stub_addresses_request
     allow(Shipcloud).to receive(:request).
-      with(:get, 'addresses', {}).
+      with(:get, 'addresses', {}, api_key: nil).
         and_return(
           [
             {
