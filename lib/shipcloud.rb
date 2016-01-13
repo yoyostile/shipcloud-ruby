@@ -79,7 +79,8 @@ module Shipcloud
   # @param [Symbol] http_method The http method to use, must be one of :get, :post, :put and :delete
   # @param [String] api_url The API url to use
   # @param [Hash] data The data to send, e.g. used when creating new objects.
-  # @param [String] optional api_key The api key. If no api key is given Shipcloud.api_key will be used for the request
+  # @param [String] optional api_key The api key. If no api key is given, Shipcloud.api_key will
+  # be used for the request
   # @return [Array] The parsed JSON response.
   def self.request(http_method, api_url, data, api_key: Shipcloud.api_key)
     info = Request::Info.new(http_method, api_url, api_key, data)

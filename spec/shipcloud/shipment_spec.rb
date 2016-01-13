@@ -47,8 +47,8 @@ describe Shipcloud::Shipment do
 
   describe ".create" do
     it "makes a new POST request using the correct API endpoint" do
-      expect(Shipcloud).to receive(:request).with(:post, "shipments", valid_attributes, api_key: nil).
-        and_return("data" => {})
+      expect(Shipcloud).to receive(:request).
+        with(:post, "shipments", valid_attributes, api_key: nil).and_return("data" => {})
       Shipcloud::Shipment.create(valid_attributes)
     end
   end
@@ -63,9 +63,9 @@ describe Shipcloud::Shipment do
 
   describe ".update" do
     it "makes a new PUT request using the correct API endpoint" do
-      expect(Shipcloud).to receive(:request).with(:put, "shipments/123", {:carrier => 'ups' }, api_key: nil).
-        and_return("data" => {})
-      Shipcloud::Shipment.update("123", {:carrier => 'ups' })
+      expect(Shipcloud).to receive(:request).
+        with(:put, "shipments/123", { carrier: "ups" }, api_key: nil).and_return("data" => {})
+      Shipcloud::Shipment.update("123", carrier: "ups")
     end
   end
 
