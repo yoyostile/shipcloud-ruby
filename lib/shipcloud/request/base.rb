@@ -8,7 +8,7 @@ module Shipcloud
       end
 
       def perform
-        raise AuthenticationError if Shipcloud.api_key.nil?
+        raise AuthenticationError unless @info.api_key
         connection.setup_https
         response = connection.request
         validate_response(response)
