@@ -10,6 +10,14 @@ describe Shipcloud::ShipcloudError do
       end
     end
 
+    context "with a response with status code 422" do
+      it "returns a Shipcloud::InvalidRequestError" do
+        expect(Shipcloud::ShipcloudError.from_response(build_response(status_code: 422))).to be_a(
+          Shipcloud::InvalidRequestError
+        )
+      end
+    end
+
     context "with a response with status code 401" do
       it "returns a Shipcloud::AuthenticationError" do
         expect(Shipcloud::ShipcloudError.from_response(build_response(status_code: 401))).to be_a(

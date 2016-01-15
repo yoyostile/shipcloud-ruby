@@ -25,7 +25,7 @@ module Shipcloud
 
     def self.error_class_for(response_code)
       case response_code
-      when 400 then InvalidRequestError
+      when 400, 422 then InvalidRequestError
       when 401 then AuthenticationError
       when 402 then TooManyRequests
       when 404 then NotFoundError
