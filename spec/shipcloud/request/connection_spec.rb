@@ -7,7 +7,7 @@ describe Shipcloud::Request::Connection do
 
       connection.setup_https
 
-      connection.https.should_not be_nil
+      expect(connection.https).to_not be_nil
     end
   end
 

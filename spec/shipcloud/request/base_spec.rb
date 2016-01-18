@@ -11,17 +11,17 @@ describe Shipcloud::Request::Base do
     end
 
     it "performs an https request" do
-      Shipcloud.stub(:api_key).and_return("some key")
-      connection = stub
-      validator = stub
-      Shipcloud::Request::Connection.stub(:new).and_return(connection)
-      Shipcloud::Request::Validator.stub(:new).and_return(validator)
-
-      connection.should_receive(:setup_https)
-      connection.should_receive(:request)
-      validator.should_receive(:validated_data_for)
+      allow(Shipcloud).to receive(:api_key).and_return("some key")
+      connection = double("connection", setup_https: nil, request: nil)
+      validator = double("validator", validated_data_for: nil)
+      allow(Shipcloud::Request::Connection).to receive(:new).and_return(connection)
+      allow(Shipcloud::Request::Validator).to receive(:new).and_return(validator)
 
       Shipcloud::Request::Base.new(nil).perform
+
+      expect(connection).to have_received(:setup_https)
+      expect(connection).to have_received(:request)
+      expect(validator).to have_received(:validated_data_for)
     end
   end
 end

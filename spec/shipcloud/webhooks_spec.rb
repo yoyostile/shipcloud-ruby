@@ -16,10 +16,12 @@ describe Shipcloud::Webhook do
 
   describe ".create" do
     it "makes a new POST request using the correct API endpoint" do
-      Shipcloud.should_receive(:request).
-        with(:post, "webhooks", valid_attributes).
-        and_return("data" => {})
+      allow(Shipcloud).to receive(:request).and_return("data" => {})
+
       Shipcloud::Webhook.create(valid_attributes)
+
+      expect(Shipcloud).to have_received(:request).
+        with(:post, "webhooks", valid_attributes)
     end
   end
 
